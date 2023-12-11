@@ -27,10 +27,13 @@ It's just part of the Rust learning experience.
 Let's look at one more property of nested references you may run into:
 * You can get a `&'long U` from a `&'short &'long U`
    * Just copy it out!
-* But you cannot get a `&'long mut U` from a `&'short mut &'long mut U`
+* But you cannot easily[^0] get a `&'long mut U` from a `&'short mut &'long mut U`
    * You can only reborrow a `&'short mut U`
 
 The reason is again to prevent memory unsafety.
+
+[^0]: It's sometimes possible with [`mem::replace`](https://doc.rust-lang.org/stable/std/mem/fn.replace.html) or [`replace_with`](https://docs.rs/replace_with/),
+but these are unlikely to be what you want.
 
 Additionally,
 * You cannot get a `&'long U` or *any* `&mut U` from a `&'short &'long mut U`
